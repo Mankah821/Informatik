@@ -1,0 +1,29 @@
+SELECT SUM(answer) AS total FROM Answer;        
+
+32898823.07413
+
+select answer from Answer where answer like '204%';
+
+2040
+2045
+
+ select avg(answer) from Answer where answer like '20%';
+
+1175.58333333333
+
+select question from Question where question like 'the %' limit 10;
+
+The F1 season of 1994 is remembered for what tragic event?
+The UEFA Champions League is an annual club football competition featuring clubs from which continent?
+The Rio 2016 Summer Olympics held it&#039;s closing ceremony on what date?
+The Los Angeles Dodgers were originally from what U.S. city?
+The first episode of WWF Monday Night RAW aired on January 11, 1990.
+The AHL affiliate team of the Boston Bruins is named what?
+The song &quot;Three Lions&quot; by the Lightning Seeds was made for which major football event in 1996?
+The Olympics tennis court is a giant green screen.
+The Mazda 787B won the 24 Hours of Le Mans in what year?
+The anime &quot;Lucky Star&quot; follows the story of one girl who is unaware she is God.
+
+
+SELECT SUM(answer) FROM Answer where answer like '20%';  
+56428.0  
