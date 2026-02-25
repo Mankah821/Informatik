@@ -9,3 +9,33 @@ sqlite> update person set lieblingsessen=3 where id=11 or id=9;
 sqlite> 
 
 
+SELECT name FROM person WHERE lieblingsessen IN (    SELECT id    FROM essen    WHERE essen = 'Mohnnudeln');
+Mankah
+Otto
+Simon
+
+
+ 
+sqlite> SELECT person FROM lieblingsessen JOIN essen ON person;                        
+Parse error: no such table: lieblingsessen
+sqlite> .exit                                                  
+
+
+Parse error: no such column: a.lieblingsessen
+sqlite> select p.name, e.essen from person p join essen e on e.id= p.lieblingsessen;
+Max|Burger
+Mankah|Mohnnudeln
+Benjamin|Kipferl
+Sophia|Burger
+Alex E.|Putenfilet
+Dino|Schnitzel
+Otto|Mohnnudeln
+Roger|Putenfilet
+Nicolai|Weckerl
+Simon|Mohnnudeln
+Jonas|Weckerl
+Alex H.|Kipferl
+Marvin|Schnitzel
+Sami|Schnitzel
+Maximilian|Schnitzel
+sqlite>
