@@ -1,0 +1,47 @@
+
+erdiagram Model
+
+notation=crowsfoot
+
+entity Leser {
+    id key
+    name
+    email unique
+    mitglied_seit
+}
+
+entity Buch {
+    id key
+    titel
+    autor
+    verlag
+    isbn optional unique
+}
+
+entity Exemplar {
+    id key
+    buch_id
+    standort
+    status
+}
+
+entity Mitarbeiter {
+    id key
+    name
+}
+
+entity Ausleihe {
+    id key
+    ausleih_datum
+    rueckgabe_datum optional
+    anzahl_tage
+}
+
+
+relationship Exemplarbestand { Buch[1] -> Exemplar[N] }
+
+relationship LeserLeihe { Leser[1] -> Ausleihe[N] }
+
+relationship ExemplarLeihe { Exemplar [1] -> Ausleihe [N]}
+
+relationship Bearbeitung { Mitarbeiter [1] -> Ausleihe [N] }
