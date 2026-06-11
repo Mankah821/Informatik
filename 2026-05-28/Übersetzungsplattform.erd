@@ -1,0 +1,59 @@
+erdiagram TranslationPlatform
+
+notation=crowsfoot
+
+entity Language {
+    id key
+    bcp47Code
+    posixCode
+    iso6393Code
+    directoryName
+    englishName
+    whisperCode optional
+}
+
+entity Vote {
+    id key
+    translatedText
+    submittedAt
+    modelId
+    sourceTextId
+    languageId
+}
+
+entity SourceText {
+    id key
+    text
+}
+
+entity LanguageProficiency {
+    id key
+    level
+    modelId
+    languageId
+}
+
+entity Model {
+    id key
+    name
+}
+
+relationship language_vote {
+    Language[1] -> Vote[N]
+}
+
+relationship model_vote {
+    Model[1] -> Vote[N]
+}
+
+relationship sourceText_vote {
+    SourceText[1] -> Vote[N]
+}
+
+relationship model_languageProficiency {
+    Model[1] -> LanguageProficiency[N]
+}
+
+relationship language_languageProficiency {
+    Language[1] -> LanguageProficiency[N]
+}
