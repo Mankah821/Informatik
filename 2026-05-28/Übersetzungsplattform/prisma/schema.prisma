@@ -10,6 +10,12 @@ generator client {
     runtime  = "deno"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./ERD.md"
+  theme    = "default"
+}
+
 model language {
     id Int @id @default(autoincrement())
     bcp47Code     String  @unique
@@ -49,9 +55,15 @@ model Vote {
 
   model      Model      @relation(fields: [modelId], references: [id], onDelete: Cascade)
   sourceText SourceText @relation(fields: [sourceTextId], references: [id], onDelete: Cascade)
-  language   Language   @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  language   language   @relation(fields: [languageId], references: [id], onDelete: Cascade)
 
   @@unique([modelId, sourceTextId, languageId, translatedText])
+
+  /// hilft bei der suche für eine sprache
+  @@index([languageId])
+
+  /// hilft bei der suche nach votes eines bestimmten models
+  @@index([modelId])
 }
 
 model LanguageProficiency {
@@ -62,7 +74,9 @@ model LanguageProficiency {
   languageId Int
 
   model    Model    @relation(fields: [modelId], references: [id], onDelete: Cascade)
-  language Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+  language language @relation(fields: [languageId], references: [id], onDelete: Cascade)
 
   @@unique([modelId, languageId])
+  //hilft bei der suche der bewertung bestimmter models
+  @@index([modelId, languageId])
 }
