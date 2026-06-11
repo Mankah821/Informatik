@@ -1,0 +1,68 @@
+
+datasource db {
+    provider = "sqlite"
+    url      = "file:../translation.db"
+}
+
+generator client {
+    provider = "prisma-client"
+    output   = "client"
+    runtime  = "deno"
+}
+
+model language {
+    id Int @id @default(autoincrement())
+    bcp47Code     String  @unique
+    posixCode     String  @unique
+    iso6393Code   String  @unique
+    directoryName String  @unique
+    englishName   String
+    whisperCode   String? @unique
+
+  votes Vote[]
+    proficiencies LanguageProficiency[]
+}
+
+model SourceText {
+  id   Int    @id @default(autoincrement())
+  text String @unique
+
+  votes Vote[]
+}
+
+model Model {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  votes Vote[]
+    proficiencies LanguageProficiency[]
+}
+
+model Vote {
+  id             Int      @id @default(autoincrement())
+  translatedText String
+  submittedAt    DateTime @default(now())
+
+  modelId      Int
+  sourceTextId Int
+  languageId   Int
+
+  model      Model      @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  sourceText SourceText @relation(fields: [sourceTextId], references: [id], onDelete: Cascade)
+  language   Language   @relation(fields: [languageId], references: [id], onDelete: Cascade)
+
+  @@unique([modelId, sourceTextId, languageId, translatedText])
+}
+
+model LanguageProficiency {
+  id    Int @id @default(autoincrement())
+  level Int
+
+  modelId    Int
+  languageId Int
+
+  model    Model    @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  language Language @relation(fields: [languageId], references: [id], onDelete: Cascade)
+
+  @@unique([modelId, languageId])
+}
