@@ -1,2 +1,2 @@
 -- Lösung für Aufgabe b
-Select Klasse from Schule group by Klasse order by Klassse ASC;
+SELECT klasse FROM schueler GROUP BY klasse ORDER BY klasse ASC;
